@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    {% include 'template.html' %}
+
+    <div class="container mt-5">
+        <h2>Welcome, {{ current_user.username }}!</h2>
+        <p>This is your dashboard.</p>
+
+        <h4>Your Books:</h4>
+        {% if books %}
+            <ul class="list-group">
+                {% for book in books %}
+                    <li class="list-group-item">
+                        <h5>{{ book.title }}</h5>
+                        <p>Author: {{ book.author }}</p>
+                        <a href="{{ book.link }}" target="_blank">More Info</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You don't have any books yet. Start adding them!</p>
+        {% endif %}
+
+        <a href="{{ url_for('logout') }}" class="btn btn-danger mt-3">Logout</a>
+    </div>
+</body>
+</html>
